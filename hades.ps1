@@ -1,3 +1,19 @@
+param (
+    [string[]]$filePaths,
+    [switch]$h,
+    [switch]$a
+)
+
+if ($Help) {
+	Write-Host "Hades supports the following arguments:"
+	Write-Host "-h: Help Menu. Displays this message"
+	Write-Host "-filePaths <Path1, Path2, etc>: Specify 1+ file path(s) for non-standard directories you want to enumerate"
+	Write-Host "-a: Aggressive enumeration. This is used with -filePaths to check for ALL files in the directory, instead of just checking for interesting types of files"
+	Write-Host "{Example Usage}"
+	Write-Host 'powershell -File C:\path\to\hades.ps1 -filePaths "C:\path\to\file1.txt", "C:\path\to\file2.txt", "C:\path\to\file3.txt" -a'
+	exit
+}
+
 function LDAPSearch {
     param (
         [string]$LDAPQuery
@@ -16,18 +32,28 @@ function LDAPSearch {
 
 $line = "`n================================================================================`n"
 
-echo "$line [!] Tip: Only Enumerating Local Machine (users, groups, etc) & not querying Domain information $line"
+Write-Host "$line [!] Tip: Only Enumerating Local Machine (users, groups, etc) & not querying Domain information $line"
 
 whoami /all
 
-echo "$line Listing Root Directory"
+Write-Host "$line Listing Root Directory"
 Get-ChildItem -Path C:\ -Force -EA SilentlyContinue
 
-echo "$line [!] Tip: If the script is not run interactively (e.g. via WinRM), Hades won't be able to prompt you for directories to search & you'll need to manually Enumerate them" 
+if ($filePaths) {
+	foreach ($filePath in $filePaths) {
+		Write-Host "$line Enumerating $filePath"
 
-$userInput = Read-Host -Prompt "Enter non-standard directories seperated by a comma (e.g. inetpub,xampp)"
-$userInput = $userInput.split(",");
-foreach ($i in $userInput) { echo "$line Listing Contents of $i";  Get-ChildItem -Path C:\"$i" -File -Recurse -ErrorAction SilentlyContinue; }
+		if ($a) {
+			Write-Host "[+] Aggressively listing all files"
+			Get-ChildItem -Path "$filePath" -File -Force -Recurse -ErrorAction SilentlyContinue
+		} else {
+			Write-Host "[+] Only listing interesting types of files"
+			Get-ChildItem -Path "$filePath" -Include *.txt,*.ini,*.pdf,*.config,*htdocs,*htpasswd,*htaccess,.*sql*,.*.db,*.php,*.git -File -Recurse -EA SilentlyContinue
+
+	}
+} else {
+	Write-Host "No additional directories were specified with -filePaths argument"
+}
 
 echo "$line Checking the Recycle Bin for deleted files (without Admin Privs, you can only see the current user's trash by default)"
 Get-ChildItem -Path 'C:\$Recycle.Bin' -Force -EA SilentlyContinue -Recurse
