@@ -1,4 +1,4 @@
-# hades-Post_Exploit
+# hades-PrivEsc
 Automated Post Exploitation recon tool for Local Windows machines &amp; AD environments
 
 # Work in progress
