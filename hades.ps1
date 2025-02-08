@@ -10,7 +10,7 @@ if ($h) {
 	Write-Host "-filePaths <Path1, Path2, etc>: Specify 1+ file path(s) for non-standard directories you want to enumerate`n"
 	Write-Host "-a: Aggressive enumeration. This is used with -filePaths to check for ALL files in the directory, instead of just checking for interesting types of files`n"
 	Write-Host "`n{Example Usage}`n"
-	Write-Host 'powershell -File C:\path\to\hades.ps1 -filePaths "C:\path\to\file1.txt", "C:\path\to\file2.txt", "C:\path\to\file3.txt" -a'
+	Write-Host 'powershell -File C:\path\to\hades.ps1 -filePaths "C:\path\to\dir1", "C:\path\to\dir2", "C:\path\to\dir3" -a'
 	exit
 }
 
