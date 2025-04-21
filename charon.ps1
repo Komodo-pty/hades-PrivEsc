@@ -20,8 +20,8 @@ if ($h) {
 	Write-Host "$line {Example Usage} `n"
 	Write-Host "Import-Module C:\path\to\charon.ps1 `n"
         Write-Host "powershell -File C:\path\to\charon.ps1 -au -ag -c `n"
-	Write-Host 'powershell -File C:\path\to\charon.ps1 -groups "HR", "Development Team"`n'
-	Write-Host 'powershell -File C:\path\to\charon.ps1 -users "bob", "lisa"`n'
+	Write-Host "powershell -File C:\path\to\charon.ps1 -groups `"HR`", `"Development Team`" `n"
+	Write-Host "powershell -File C:\path\to\charon.ps1 -users `"bob`", `"lisa`" `n"
 	exit
 }
 
