@@ -48,7 +48,7 @@ if ($filePaths) {
 			Get-ChildItem -Path "$filePath" -File -Force -Recurse -ErrorAction SilentlyContinue
 		} else {
 			Write-Host "[+] Only listing interesting types of files"
-			Get-ChildItem -Path "$filePath" -Include *.txt,*.ini,*.pdf,*.config,*htdocs,*htpasswd,*htaccess,*.sql*,*.db,*.php,*.git,*.ps1 -File -Recurse -EA SilentlyContinue
+			Get-ChildItem -Path "$filePath" -Include *.txt,*.ini,*.pdf,*config*,*htdocs,*htpasswd,*htaccess,*.sql*,*.db,*.php,*.git,*.ps1 -File -Recurse -EA SilentlyContinue
 		}
 
 	}
