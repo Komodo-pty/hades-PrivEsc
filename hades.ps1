@@ -62,6 +62,13 @@ Get-ChildItem -Path 'C:\$Recycle.Bin' -Force -EA SilentlyContinue -Recurse
 Write-Host "$line Current User's PS History"
 Get-History
 
+Write-Host "$line Attempting to output every user's PS History"
+Get-ChildItem -Path 'C:\Users\*\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\' -Filter 'ConsoleHost_history.txt' -Recurse |
+    ForEach-Object {
+        Write-Host "`n--- $($_.FullName) ---`n"
+        Get-Content $_.FullName
+    }
+
 Write-Host "$line Checking for PS Transcription File"
 type (Get-PSReadlineOption).HistorySavePath
 
