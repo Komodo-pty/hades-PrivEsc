@@ -1,7 +1,7 @@
 # hades-PrivEsc
-Automated Post Exploitation recon tools for Local Windows machines &amp; AD environments.
+Automated Post Exploitation recon tools for Standalone Windows machines &amp; AD environments.
 
-Hades: Enumerates the Local Windows machine.
+Hades: Enumerates the Standalone Windows machine.
 
 Charon: Enumerates the Active Directory Domain
 
