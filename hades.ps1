@@ -4,13 +4,19 @@ param (
     [switch]$a
 )
 
+$help = @'
+[Options]
+	-h: Show this help menu
+	-filePaths <Path1, Path2, etc>: Specify 1+ file path(s) for non-standard directories you want to enumerate
+	-a: Aggressive enumeration. Used with -filePaths to check for ALL files in the directory, instead of just checking for interesting types of files
+
+[Usage]
+	powershell -File C:\path\to\hades.ps1 -filePaths "C:\path\to\dir1", "C:\path\to\dir2", "C:\path\to\dir3" -a
+
+'@
+
 if ($h) {
-	Write-Host "`nHades supports the following arguments:`n"
-	Write-Host "-h: Help Menu. Displays this message`n"
-	Write-Host "-filePaths <Path1, Path2, etc>: Specify 1+ file path(s) for non-standard directories you want to enumerate`n"
-	Write-Host "-a: Aggressive enumeration. This is used with -filePaths to check for ALL files in the directory, instead of just checking for interesting types of files`n"
-	Write-Host "`n{Example Usage}`n"
-	Write-Host 'powershell -File C:\path\to\hades.ps1 -filePaths "C:\path\to\dir1", "C:\path\to\dir2", "C:\path\to\dir3" -a'
+	Write-Host $help 
 	exit
 }
 
@@ -32,7 +38,7 @@ function LDAPSearch {
 
 $line = "`n================================================================================`n"
 
-Write-Host "$line [!] Tip: Only Enumerating Local Machine (users, groups, etc) & not querying Domain information $line"
+Write-Host "$line [!] Tip: Only enumerating local machine (users, groups, etc). Use Charon to enumerate domain information $line"
 
 whoami /all
 
@@ -137,7 +143,3 @@ cmd /c 'wmic service get name,displayname,pathname,startmode | findstr /v /i "C:
 
 Write-Host "$line Drives used by Host. Manually Enumerate non-standard drives (other than C:)"
 wmic logicaldisk get caption
-
-
-#Nested Groups
-#Can add check for text in files (e.g. user, NTLM, password, hash, etc). Case Sensitive? user will match username, right?
