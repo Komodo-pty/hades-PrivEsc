@@ -13,11 +13,13 @@ Hades & Charon are in the early stages of development. I'm still testing & refin
 ## Setup
 Allow PS script execution, import the desired script, &amp; run with `-h` for the Help Menu.
 
+```
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted; Get-ExecutionPolicy
 
 Import-Module .\hades.ps1
 
 powershell -File .\hades.ps1 -h
+```
 
 ## Functionality
 Hades: Enumerates the Standalone Windows machine.
